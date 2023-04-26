@@ -45,3 +45,6 @@ const [ , ,trunks = 'Not found' ]: string[] = ["Goku", "Vegeta", "Trunk"];
 
 console.log('PErsona 3: ', trunks) // Trunk
 console.log('PErsona 2: ', Goku) // 'Not found'
+
+
+export {}
