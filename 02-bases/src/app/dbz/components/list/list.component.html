@@ -1,0 +1,29 @@
+
+<h2>Listado</h2>
+<ul
+  class="list-group"
+  *ngFor="
+let character of characterList;
+let i = index;
+let isFirst = first;
+let isLast = last;
+let isEven = even;
+"
+>
+  <!--
+
+    Con ngClass podemos añadir clases de manera condicional
+    Aplicar clases si es par o ultimo
+
+  -->
+  <li class="list-group-item"
+  [ngClass]="{
+    'list-group-item-dark':isLast,
+
+    'list-group-item-primary':isEven
+  }"
+  >
+    <span>{{ i + 1 }}.- </span>{{ character.name }} - <b>Power:</b>
+    {{ character.power }}
+  </li>
+</ul>
