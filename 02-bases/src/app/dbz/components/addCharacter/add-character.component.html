@@ -1,4 +1,8 @@
-<form action="" class="row mb-2">
+<form
+action=""
+class="row mb-2"
+(ngSubmit)="emitCharacter()"
+>
   <h4>Agregar personaje</h4>
   <!--Two way data banding asignar 2 cosas al mismo tiempo [()]-->
   <input
@@ -16,6 +20,7 @@
   <button
   type="submit"
   class="btn btn-primary"
-  (click)="emitCharacter()"
   >Agregar</button>
+
+
 </form>

@@ -1,29 +1,24 @@
-
 <h2>Listado</h2>
-<ul
-  class="list-group"
-  *ngFor="
-let character of characterList;
-let i = index;
-let isFirst = first;
-let isLast = last;
-let isEven = even;
-"
->
-  <!--
-
-    Con ngClass podemos añadir clases de manera condicional
-    Aplicar clases si es par o ultimo
-
-  -->
-  <li class="list-group-item"
-  [ngClass]="{
-    'list-group-item-dark':isLast,
-
-    'list-group-item-primary':isEven
-  }"
+<ul class="list-group-item">
+  <li
+    *ngFor="
+      let character of characterList;
+      let i = index;
+      let isFirst = first;
+      let isLast = last;
+      let isEven = even
+    "
+    class="list-group-item"
+    [ngClass]="{
+      'list-group-item-dark': isLast,
+      'list-group-item-primary': isEven
+    }"
   >
-    <span>{{ i + 1 }}.- </span>{{ character.name }} - <b>Power:</b>
-    {{ character.power }}
+    <div class="d-flex justify-content-center">
+      <span>{{ i + 1 }}.- </span>{{ character.name }} - <b>Power:</b> {{ character.power }}
+      <a class="btn btn-danger" (click)="emiteDeleteCharacter(character.id!)"
+        >X</a
+      >
+    </div>
   </li>
 </ul>
