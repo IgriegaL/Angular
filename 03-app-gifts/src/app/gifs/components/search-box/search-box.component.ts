@@ -15,6 +15,7 @@ import { GifsService } from '../../services/gifs.service';
 })
 
 export class SearchBoxComponent {
+
   /*
   Tomamos el valor de el tag con ViewChild y lo declaramos como taginput,
   y lo declaramos como tipo element ref como HTMLPinputElement
@@ -23,7 +24,6 @@ export class SearchBoxComponent {
   public taginput!: ElementRef<HTMLInputElement>;
   // Para usar los servicios debemos inyectarlos en el constructor
   constructor(private gifsService: GifsService) { }
-
 
 
   searchTag() {

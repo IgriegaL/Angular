@@ -2,20 +2,23 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
 
-@Injectable({providedIn: 'root'}) // el @provideIn hace que esté disponible en toda la app
+@Injectable({providedIn: 'root'})
 export class GifsService {
 
-  private _tagsHistory: string[] = []; // usamos privado para evitar cambios en los tags ingresados
+  private _tagsHistory: string[] = [];
   private apiKey: string = 'tuYipcGShTyYa0xbu2b8CZB1q13Wsudo';
   private serviceURl: string = "http://api.giphy.com/v1/gifs/search";
-  // api.giphy.com/v1/gifs/search?api_key=tuYipcGShTyYa0xbu2b8CZB1q13Wsudo&q=valorant&limit=10
-  // Traemos de la interfaz el tipo Gif que contendrá nuestros gif
   public gifList: Gif[] = [];
+  public tag0:string = "";
 
   // Constructor - HttpClient - para hacer llamadas
   constructor(
     private http: HttpClient
-    ) { }
+    ) {
+      // Para que funcione debemos activar nuestro llamado
+      this.loadLocalStorage();
+      console.log('Gifs service Ready');
+     }
 
   get tagHistory(){
     return [...this._tagsHistory];
@@ -35,8 +38,30 @@ export class GifsService {
     this._tagsHistory.unshift(tag);
     //que no muedes mas de 10
     this._tagsHistory = this._tagsHistory.splice(0,10);
+    // Mandamos a guardar el local Storage
+    this.saveLocalstorage();
+  }
+  // Guardamos en el local Storage el historial
+  private saveLocalstorage():void{
+    localStorage.setItem("history", JSON.stringify(this._tagsHistory))
+  }
+  // local que contiene history, pero puede devolver nullo o string
+  private loadLocalStorage():void {
+    //  Si no tenemos data, no devolvemos nada
+    if(!localStorage.getItem("history")) return;
+
+    console.log(localStorage.getItem("history"));
+
+    // JSON.parse para transformar el history que obtenemos
+    this._tagsHistory = JSON.parse( localStorage.getItem("history")! );
+
+    // Buscar si el length === 0 retorna nada
+    if (this._tagsHistory.length === 0) return;
+    // se llama al search a la historia en 0
+    this.searchTag(this._tagsHistory[0]);
 
   }
+
   public searchTag( tag:string):void{
     if (tag === "") return;
     this.organizeHistory(tag);
