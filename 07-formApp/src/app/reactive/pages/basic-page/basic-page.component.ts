@@ -21,7 +21,6 @@ export class BasicPageComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
   ngOnInit(): void {
-    this.myForm.reset(RTX5090)
   }
 
   isValidField(field: string): Boolean | null {
@@ -36,9 +35,10 @@ export class BasicPageComponent implements OnInit {
         case "required":
           return "Este campo es requerido ";
         case "minlength":
-          return `Mínimo ${errors['minlength']}`;
+          return `Mín imo ${errors['minlength'].requiredLength} caracters.`;
       }
     }
+    return null;
   }
 
   onSave(): void {
